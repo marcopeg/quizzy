@@ -14,7 +14,7 @@ const App = () => (
             <html lang="en" />
             <title>quizzy</title>
         </Helmet>
-        <Route path="/:cardId?" component={Cards} />
+        <Route path="/" component={Cards} />
     </div>
 )
 

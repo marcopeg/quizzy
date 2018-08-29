@@ -9,7 +9,8 @@ class Card extends React.PureComponent {
     static propTypes = {
         en: PropTypes.string.isRequired,
         se: PropTypes.string.isRequired,
-        moveNext: PropTypes.func.isRequired,
+        cardOk: PropTypes.func.isRequired,
+        cardKo: PropTypes.func.isRequired,
     }
 
     state = {
@@ -20,9 +21,22 @@ class Card extends React.PureComponent {
         flip: !this.state.flip,
     })
 
-    moveNext = () => {
-        this.setState({ flip: false })
-        this.props.moveNext()
+    cardOk = () => {
+        let delay = 0
+        if (this.state.flip) {
+            this.setState({ flip: false })
+            delay = 200
+        }
+        setTimeout(this.props.cardOk, delay)
+    }
+
+    cardKo = () => {
+        let delay = 0
+        if (this.state.flip) {
+            this.setState({ flip: false })
+            delay = 200
+        }
+        setTimeout(this.props.cardKo, delay)
     }
 
     render () {
@@ -60,10 +74,16 @@ class Card extends React.PureComponent {
                         </div>
                     </div>
                 </div>
-                <button
-                    style={style.nextBtn}
-                    onClick={this.moveNext}
-                >NEXT</button>
+                <div style={style.controls}>
+                    <button
+                        style={[ style.btn, style.damnBtn ]}
+                        onClick={this.cardKo}
+                    >nope :-(</button>
+                    <button
+                        style={[ style.btn, style.nextBtn ]}
+                        onClick={this.cardOk}
+                    >Got it!</button>
+                </div>
             </div>
         )
     }
