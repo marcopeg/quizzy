@@ -100,7 +100,7 @@ export const cardOk = (card) => (dispatch, getState) => {
         ? result.score += 1
         : 1
 
-    result.delay = moment().add(20 * result.score, 's').valueOf()
+    result.delay = moment().add(45 * result.score, 's').valueOf()
 
     dispatch(setResult(card.id, result))
     dispatch(selectNextCard())
