@@ -30,4 +30,28 @@ export default `
 28,utsättas för brott,subject to crimes,sentence,documents
 29,enkäten,survey,word,documents
 30,verksamhet,operation,word,documents
+31,anhörig,relative (of family),word,"family, documents, people"
+32,kontaktuppgifter,contacts,word,"family, documents, people"
+33,övriga,other,word,documents
+34,önskemål,request,word,documents
+35,sommarläger,summer,word,sport
+36,innebär,means,verb,sport
+37,viktiga,important,word,sport
+38,baskunskaper,basic knowledge,word,sport
+39,hantering,management,verb,sport
+40,framför allt,above all,sentence,sport
+41,säkerhet,security,word,sport
+42,utrustningen,equipment,word,sport
+43,färdig,finished,word,sport
+44,däremot,however,word,sport
+45,lösa in,redeem,verb,sport
+46,lägret,camp,word,sport
+47,består,consist,verb,sport
+48,basförsäkring,basic insurance,word,sport
+49,medlemskap,membership,word,sport
+50,ditt egna ,your own,sentence,sport
+51,hör av dig,get in touch,sentence,sport
+52,antal,quantity,word,sport
+53,deltagare,participants,word,sport
+54,stycken,pieces,word,sport
 `
