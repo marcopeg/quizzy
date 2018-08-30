@@ -15,6 +15,7 @@ const style = {
         justifyContent: 'center',
         alignItems: 'center',
         transition: 'transform 0.3s ease',
+        textAlign: 'center',
     },
     // visible: {
     //     transform: 'translate3d(0, 0, 0)',
