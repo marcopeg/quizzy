@@ -9,7 +9,7 @@ services:
             NODE_ENV: production
             LOG_LEVEL: ${LOG_LEVEL-info}
             SSR_PORT: ${SSR_PORT:-8080}
-            SSR_ENABLED: ${SSR_ENABLED-yes}
+            SSR_ENABLED: ${SSR_ENABLED-no}
             SSR_BUILD: ${SSR_BUILD:-/usr/src/app/build}
             SSR_ROOT: ${SSR_ROOT:-/usr/src/app/src}
             SSR_TIMEOUT: ${SSR_TIMEOUT:-5000}
