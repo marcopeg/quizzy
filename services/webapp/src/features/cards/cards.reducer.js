@@ -1,13 +1,5 @@
 
 export const initialState = {
-    // dataset
-    cards: [],
-    cardsMap: {},
-    tags: [],
-    tagsMap: {},
-    types: [],
-    typesMap: {},
-
     // status of the game
     deckSize: 10,
     cardDelay: 45,
@@ -23,17 +15,11 @@ export const initialState = {
  * Actions
  */
 
-export const SET_DATASET = 'setDataset@cards'
 export const SET_DECK = 'setDeck@cards'
 export const SET_DECK_COMPLETED = 'setDeckCompleted@cards'
 export const SET_CURRENT_CARD = 'setCurrentCard@cards'
 export const SET_RESULT = 'setResult@cards'
 export const RESET_RESULTS = 'resetResults@cards'
-
-export const setDataset = ({ cards, types, tags }) => ({
-    type: SET_DATASET,
-    payload: { cards, types, tags },
-})
 
 export const setDeck = deck => ({
     type: SET_DECK,
@@ -63,27 +49,6 @@ export const resetResults = () => ({
  */
 
 export const actionHandlers = {
-    [SET_DATASET]: (state, { payload }) => ({
-        ...state,
-        // set cards objects
-        cards: [...payload.cards],
-        cardsMap: payload.cards.reduce((acc, curr) => ({
-            ...acc,
-            [curr.id]: curr,
-        }), {}),
-        // set types objects
-        types: [...payload.types],
-        typesMap: payload.types.reduce((acc, curr) => ({
-            ...acc,
-            [curr]: payload.cards.filter(card => card.type === curr),
-        }), {}),
-        // set tags objects
-        tags: [...payload.tags],
-        tagsMap: payload.tags.reduce((acc, curr) => ({
-            ...acc,
-            [curr]: payload.cards.filter(card => card.tags.indexOf(curr) !== -1),
-        }), {}),
-    }),
     [SET_DECK]: (state, { payload }) => ({
         ...state,
         isDeckCompleted: false,

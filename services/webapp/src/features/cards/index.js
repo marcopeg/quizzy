@@ -1,5 +1,6 @@
 import cardsReducer from './cards.reducer'
 import * as cardsService from './cards.service'
+import cardsListener from './cards.listener'
 
 /**
  * Synchronous Feature API
@@ -13,6 +14,8 @@ export const reducers = {
 export const services = [
     cardsService,
 ]
-export const listeners = []
+export const listeners = [
+    cardsListener,
+]
 
 export { default as Cards } from './Cards.containers'

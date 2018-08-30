@@ -1,9 +1,7 @@
 import moment from 'moment'
 import shuffle from 'shuffle-array'
-import { getJSON } from '@marcopeg/utils/lib/request'
 
 import {
-    setDataset,
     setDeck,
     setDeckCompleted,
     setCurrentCard,
@@ -11,18 +9,10 @@ import {
     resetResults,
 } from './cards.reducer'
 
-export const fetchDataset = () => (dispatch, getState) => {
-    const { ssr } = getState()
-    const endpoint = ssr.apiUrl('/v1/dataset/')
-    console.log(ssr)
-    console.log(endpoint)
-    return ssr.await(getJSON(endpoint))
-}
-
 export const selectDeck = () => (dispatch, getState) => {
     const now = Date.now()
-    const { cards } = getState()
-    const withResults = cards.cards
+    const { dataset, cards } = getState()
+    const withResults = dataset.cards
         .map((card) => {
             return {
                 ...card,
@@ -126,8 +116,8 @@ export const replayDeck = () => (dispatch) => {
     dispatch(selectNextCard())
 }
 
-export const init = () => async (dispatch) => {
-    const dataset = await dispatch(fetchDataset())
-    dispatch(setDataset(dataset))
-    dispatch(initDeck())
-}
+// export const init = () => async (dispatch) => {
+//     const dataset = await dispatch(fetchDataset())
+//     dispatch(setDataset(dataset))
+//     dispatch(initDeck())
+// }
