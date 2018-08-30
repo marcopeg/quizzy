@@ -32,7 +32,7 @@ export const download = () => async (dispatch) => {
     } catch (err) {
         throw new Error(`[dataset] failed download - ${err.message}`)
     } finally {
-        dispatch(setLoading(false))
+        setTimeout(() => dispatch(setLoading(false)), 600)
     }
     return data
 }

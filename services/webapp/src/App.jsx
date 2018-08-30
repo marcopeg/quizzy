@@ -1,7 +1,8 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+// import { Route } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
+import { Syncing } from 'features/dataset'
 import { Cards } from 'features/cards'
 
 /**
@@ -14,7 +15,8 @@ const App = () => (
             <html lang="en" />
             <title>quizzy</title>
         </Helmet>
-        <Route path="/" component={Cards} />
+        <Cards />
+        <Syncing />
     </div>
 )
 

@@ -1,6 +1,5 @@
 import moment from 'moment'
 import shuffle from 'shuffle-array'
-
 import { scoreOk, scoreKo } from 'features/scores'
 
 import {
@@ -13,13 +12,13 @@ import {
 
 export const selectDeck = () => (dispatch, getState) => {
     const now = Date.now()
-    const { dataset, cards } = getState()
+    const { dataset, scores, cards } = getState()
     const withResults = dataset.cards
         .map((card) => {
             return {
                 ...card,
-                score: cards.results[card.id] ? cards.results[card.id].score : 0,
-                delay: cards.results[card.id] ? cards.results[card.id].delay : now,
+                score: scores.cards[card.id] ? scores.cards[card.id].value : 0,
+                delay: scores.cards[card.id] ? moment(scores.cards[card.id].nextIteration).valueOf() : now,
             }
         })
         .filter(card => card.delay <= now)
@@ -52,7 +51,6 @@ export const getAvailableDeckCards = () => (dispatch, getState) => {
 }
 
 export const selectNextCard = () => async (dispatch, getState) => {
-    // const { cards } = getState()
     const availableDeck = await dispatch(getAvailableDeckCards())
 
     if (availableDeck.length) {
@@ -89,9 +87,9 @@ export const cardOk = (card) => (dispatch, getState) => {
 
     result.delay = moment().add(cards.cardDelay * result.score, 's').valueOf()
 
-    dispatch(scoreOk(card))
     dispatch(setResult(card.id, result))
     dispatch(selectNextCard())
+    dispatch(scoreOk(card))
 }
 
 export const cardKo = (card) => (dispatch, getState) => {
@@ -105,9 +103,9 @@ export const cardKo = (card) => (dispatch, getState) => {
 
     result.score -= 1
 
-    dispatch(scoreKo(card))
     dispatch(setResult(card.id, result))
     dispatch(randomizeNextCard())
+    dispatch(scoreKo(card))
 }
 
 export const initDeck = () => (dispatch) => {

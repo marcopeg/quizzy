@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { resync } from 'features/dataset'
 import { cardOk, cardKo, initDeck, replayDeck } from './cards.service'
 import Title from 'components/Title'
 import Button from 'components/Button'
@@ -17,6 +18,7 @@ const mapDispatch = {
     cardKo,
     initDeck,
     replayDeck,
+    resync,
 }
 
 const Cards = ({
@@ -27,6 +29,7 @@ const Cards = ({
     cardKo,
     initDeck,
     replayDeck,
+    resync,
 }) => (
     <div>
         <Title value="QuizzY" />
@@ -44,7 +47,12 @@ const Cards = ({
                     cardKo={() => cardKo(currentCard)}
                 />
                 <div style={{ textAlign: 'center', color: '#666', marginTop: 80 }}>
-                    <small onClick={() => initDeck()}>load a new deck</small>
+                    <p>
+                        <small onClick={() => initDeck()}>load a new deck</small>
+                    </p>
+                    <p>
+                        <small onClick={() => resync()}>resync dataset</small>
+                    </p>
                 </div>
             </div>
         ) : null}
@@ -57,6 +65,10 @@ const Cards = ({
                 </p>
                 <p>
                     <Button onClick={() => replayDeck()}>replay deck</Button>
+                </p>
+                <hr />
+                <p>
+                    <Button onClick={() => resync()}>resync dataset</Button>
                 </p>
             </div>
         ) : null}
@@ -73,6 +85,7 @@ Cards.propTypes = {
     cardKo: PropTypes.func.isRequired,
     initDeck: PropTypes.func.isRequired,
     replayDeck: PropTypes.func.isRequired,
+    resync: PropTypes.func.isRequired,
 }
 
 Cards.defaultProps = {
