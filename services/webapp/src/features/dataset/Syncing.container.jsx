@@ -32,16 +32,21 @@ const mapState = ({ dataset }) => ({
     isLoading: dataset.isLoading,
 })
 
-const Syncing = ({ isLoading }) => (
-    <div style={[
-        style.wrapper,
-        isLoading ? style.visible : style.hidden,
-    ]}>
-        <div style={style.message}>
-            downloading<br />fresh words
+const Syncing = ({ isLoading }) => {
+    if (!isLoading) {
+        return null
+    }
+    return (
+        <div style={[
+            style.wrapper,
+            isLoading ? style.visible : style.hidden,
+        ]}>
+            <div style={style.message}>
+                downloading<br />fresh words<br />...
+            </div>
         </div>
-    </div>
-)
+    )
+}
 
 Syncing.propTypes = {
     isLoading: PropTypes.bool.isRequired,
