@@ -12,4 +12,5 @@ export default [
     require('./dataset'),
     require('./scores'),
     require('./cards'),
+    require('./stats'),
 ]

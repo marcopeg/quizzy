@@ -13,13 +13,14 @@ const mapState = ({ cards }, { match }) => ({
     isLoading: !cards.currentCard && !cards.isDeckCompleted,
 })
 
-const mapDispatch = {
-    cardOk,
-    cardKo,
-    initDeck,
-    replayDeck,
-    resync,
-}
+const mapDispatch = (dispatch, { history }) => ({
+    cardOk: (card) => dispatch(cardOk(card)),
+    cardKo: (card) => dispatch(cardKo(card)),
+    initDeck: () => dispatch(initDeck()),
+    replayDeck: () => dispatch(replayDeck()),
+    resync: () => dispatch(resync()),
+    checkStats: () => history.push('/stats'),
+})
 
 const Cards = ({
     isLoading,
@@ -29,6 +30,7 @@ const Cards = ({
     cardKo,
     initDeck,
     replayDeck,
+    checkStats,
     resync,
 }) => (
     <div>
@@ -66,6 +68,9 @@ const Cards = ({
                 <p>
                     <Button onClick={() => replayDeck()}>replay deck</Button>
                 </p>
+                <p>
+                    <Button onClick={() => checkStats()}>check stats</Button>
+                </p>
                 <hr />
                 <p>
                     <Button onClick={() => resync()}>resync dataset</Button>
@@ -85,6 +90,7 @@ Cards.propTypes = {
     cardKo: PropTypes.func.isRequired,
     initDeck: PropTypes.func.isRequired,
     replayDeck: PropTypes.func.isRequired,
+    checkStats: PropTypes.func.isRequired,
     resync: PropTypes.func.isRequired,
 }
 
