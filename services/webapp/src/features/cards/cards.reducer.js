@@ -13,6 +13,7 @@ export const initialState = {
     cardDelay: 45,
     deck: [],
     currentCard: null,
+    isDeckCompleted: false,
 
     // keep track of the results
     results: {},

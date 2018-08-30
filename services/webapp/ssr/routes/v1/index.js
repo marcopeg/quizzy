@@ -5,8 +5,7 @@ const bodyParser = require('body-parser')
  * Import sub routers
  */
 
-const { createUsersRouter } = require('./users')
-const { createPostsRouter } = require('./posts')
+const { createDatasetRouter } = require('./dataset')
 
 /**
  * Router creator
@@ -18,12 +17,8 @@ const createApiRouter = () => {
 
     router.use(bodyParser.json())
 
-    router.use('/users', [
-        createUsersRouter(),
-    ])
-
-    router.use('/posts', [
-        createPostsRouter(),
+    router.use('/dataset', [
+        createDatasetRouter(),
     ])
 
     router.get('/', (req, res) => res.send('+ok api v1'))
