@@ -53,6 +53,9 @@ const Cards = ({
                         <small onClick={() => initDeck()}>load a new deck</small>
                     </p>
                     <p>
+                        <small onClick={() => checkStats()}>check stats</small>
+                    </p>
+                    <p>
                         <small onClick={() => resync()}>resync dataset</small>
                     </p>
                 </div>
