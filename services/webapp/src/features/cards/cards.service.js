@@ -1,6 +1,8 @@
 import moment from 'moment'
 import shuffle from 'shuffle-array'
 
+import { scoreOk, scoreKo } from 'features/scores'
+
 import {
     setDeck,
     setDeckCompleted,
@@ -87,6 +89,7 @@ export const cardOk = (card) => (dispatch, getState) => {
 
     result.delay = moment().add(cards.cardDelay * result.score, 's').valueOf()
 
+    dispatch(scoreOk(card))
     dispatch(setResult(card.id, result))
     dispatch(selectNextCard())
 }
@@ -102,6 +105,7 @@ export const cardKo = (card) => (dispatch, getState) => {
 
     result.score -= 1
 
+    dispatch(scoreKo(card))
     dispatch(setResult(card.id, result))
     dispatch(randomizeNextCard())
 }
