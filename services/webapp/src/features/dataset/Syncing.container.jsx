@@ -16,12 +16,12 @@ const style = {
         alignItems: 'center',
         transition: 'transform 0.3s ease',
     },
-    visible: {
-        transform: 'translate3d(0, 0, 0)',
-    },
-    hidden: {
-        transform: 'translate3d(0, 100vh, 0)',
-    },
+    // visible: {
+    //     transform: 'translate3d(0, 0, 0)',
+    // },
+    // hidden: {
+    //     transform: 'translate3d(0, 100vh, 0)',
+    // },
     message: {
         color: '#fff',
         fontSize: 40,
