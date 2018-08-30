@@ -10,6 +10,7 @@ export const initialState = {
 
     // status of the game
     deckSize: 10,
+    cardDelay: 45,
     deck: [],
     currentCard: null,
 
@@ -23,8 +24,10 @@ export const initialState = {
 
 export const SET_DATASET = 'setDataset@cards'
 export const SET_DECK = 'setDeck@cards'
+export const SET_DECK_COMPLETED = 'setDeckCompleted@cards'
 export const SET_CURRENT_CARD = 'setCurrentCard@cards'
 export const SET_RESULT = 'setResult@cards'
+export const RESET_RESULTS = 'resetResults@cards'
 
 export const setDataset = ({ cards, types, tags }) => ({
     type: SET_DATASET,
@@ -36,6 +39,10 @@ export const setDeck = deck => ({
     payload: deck,
 })
 
+export const setDeckCompleted = () => ({
+    type: SET_DECK_COMPLETED,
+})
+
 export const setCurrentCard = card => ({
     type: SET_CURRENT_CARD,
     payload: card,
@@ -44,6 +51,10 @@ export const setCurrentCard = card => ({
 export const setResult = (id, data) => ({
     type: SET_RESULT,
     payload: { id, data },
+})
+
+export const resetResults = () => ({
+    type: RESET_RESULTS,
 })
 
 /**
@@ -74,7 +85,13 @@ export const actionHandlers = {
     }),
     [SET_DECK]: (state, { payload }) => ({
         ...state,
+        isDeckCompleted: false,
         deck: [...payload],
+    }),
+    [SET_DECK_COMPLETED]: (state) => ({
+        ...state,
+        isDeckCompleted: true,
+        currentCard: null,
     }),
     [SET_CURRENT_CARD]: (state, { payload }) => ({
         ...state,
@@ -86,6 +103,10 @@ export const actionHandlers = {
             ...state.results,
             [payload.id]: { ...payload.data },
         },
+    }),
+    [RESET_RESULTS]: (state) => ({
+        ...state,
+        results: {},
     }),
 }
 

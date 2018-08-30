@@ -2,7 +2,14 @@ import papa from 'papaparse'
 import moment from 'moment'
 import shuffle from 'shuffle-array'
 import csvSource from './cards-csv'
-import { setDataset, setDeck, setCurrentCard, setResult } from './cards.reducer'
+import {
+    setDataset,
+    setDeck,
+    setDeckCompleted,
+    setCurrentCard,
+    setResult,
+    resetResults,
+} from './cards.reducer'
 
 export const parseCsv = (source) => () => {
     const result = papa.parse(source)
@@ -64,10 +71,10 @@ export const selectDeck = () => (dispatch, getState) => {
     dispatch(setDeck(candidates.slice(0, cards.deckSize)))
 }
 
-export const selectNextCard = (currentCardId) => (dispatch, getState) => {
+// finds out cards in the deck that still need some work
+export const getAvailableDeckCards = () => (dispatch, getState) => {
     const now = Date.now()
     const { cards } = getState()
-
     const availableDeck = cards.deck
         .map((card) => {
             return {
@@ -79,12 +86,30 @@ export const selectNextCard = (currentCardId) => (dispatch, getState) => {
         .filter(card => card.delay <= now)
 
     availableDeck.sort((a, b) => a.score - b.score)
+    return availableDeck
+}
 
-    const nextCard = availableDeck.length
-        ? availableDeck[0]
-        : cards.deck[Math.floor(Math.random() * cards.deck.length)]
+export const selectNextCard = () => async (dispatch, getState) => {
+    // const { cards } = getState()
+    const availableDeck = await dispatch(getAvailableDeckCards())
 
-    dispatch(setCurrentCard(nextCard))
+    if (availableDeck.length) {
+        dispatch(setCurrentCard(availableDeck[0]))
+    } else {
+        dispatch(setDeckCompleted())
+    }
+}
+
+export const randomizeNextCard = () => async (dispatch, getState) => {
+    const { cards } = getState()
+    const availableDeck = await dispatch(getAvailableDeckCards())
+
+    const nextCardSet = availableDeck.length
+        ? [...availableDeck]
+        : [...cards.deck]
+
+    shuffle(nextCardSet)
+    dispatch(setCurrentCard(nextCardSet[0]))
 }
 
 export const cardOk = (card) => (dispatch, getState) => {
@@ -100,7 +125,7 @@ export const cardOk = (card) => (dispatch, getState) => {
         ? result.score += 1
         : 1
 
-    result.delay = moment().add(45 * result.score, 's').valueOf()
+    result.delay = moment().add(cards.cardDelay * result.score, 's').valueOf()
 
     dispatch(setResult(card.id, result))
     dispatch(selectNextCard())
@@ -118,11 +143,16 @@ export const cardKo = (card) => (dispatch, getState) => {
     result.score -= 1
 
     dispatch(setResult(card.id, result))
-    dispatch(selectNextCard())
+    dispatch(randomizeNextCard())
 }
 
 export const initDeck = () => (dispatch) => {
     dispatch(selectDeck())
+    dispatch(selectNextCard())
+}
+
+export const replayDeck = () => (dispatch) => {
+    dispatch(resetResults())
     dispatch(selectNextCard())
 }
 
