@@ -1,3 +1,3 @@
 git pull
-(cd ./services/webapp && npm install && npm build)
+(cd ./services/webapp && rm -rf node_modules && npm install && npm build)
 humble up -d

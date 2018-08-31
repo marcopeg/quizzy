@@ -3,18 +3,18 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "react-app-rewired start",
-    "start:dev:app": "react-app-rewired start",
-    "start:dev:api": "NODE_ENV=development SSR=true nodemon --watch ssr -e js server",
+    "start": "./node_modules/.bin/react-app-rewired start",
+    "start:dev:app": "./node_modules/.bin/react-app-rewired start",
+    "start:dev:api": "NODE_ENV=development SSR=true ./node_modules/.bin/nodemon --watch ssr -e js server",
     "start:dev": "yarn && ./node_modules/.bin/npm-run-all --parallel start:dev:*",
     "start:prod:api": "NODE_ENV=production SSR=true node server",
-    "start:prod": "yarn && yarn build && yarn start:prod:api",
-    "build": "react-app-rewired build",
-    "analyze": "source-map-explorer build/static/js/main.*",
+    "start:prod": "yarn install --production=false && yarn build && yarn start:prod:api",
+    "build": "./node_modules/.bin/react-app-rewired build",
+    "analyze": "./node_modules/.bin/source-map-explorer build/static/js/main.*",
     "serve": "./node_modules/.bin/serve -s build -p 8080",
-    "test": "react-app-rewired test --env=jsdom",
+    "test": "./node_modules/.bin/react-app-rewired test --env=jsdom",
     "test:api": "./node_modules/mocha/bin/mocha ./ssr/**/*.test.js* --watch",
-    "eject": "react-app-rewired eject"
+    "eject": "./node_modules/.bin/react-app-rewired eject"
   },
   "dependencies": {
     "@marcopeg/utils": "^1.8.9",
@@ -58,7 +58,7 @@
     "react-app-rewire-eslint": "^0.2.3",
     "react-app-rewire-inline-source": "^2.0.0",
     "react-app-rewire-stylus-modules": "^0.0.2",
-    "react-app-rewired": "^1.5.0",
+    "react-app-rewired": "^1.5.2",
     "serve": "^6.5.3",
     "source-map-explorer": "^1.5.0",
     "yarn-run-all": "^3.1.1"
