@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import radium from 'radium'
 import { connect } from 'react-redux'
 
-import Title from 'components/Title'
+import MobilePage from 'layouts/MobilePage'
 
 const style = {
     card: {
@@ -40,8 +40,9 @@ const style = {
         textAlign: 'center',
         paddingTop: 50,
         paddingBottom: 50,
-        background: '#c5f7c6',
+        background: '#bfeaff',
         marginBottom: 20,
+        borderBottom: '1px solid #69b2d3',
     },
 }
 
@@ -70,22 +71,28 @@ const mapDispatch = (dispatch, { history }) => ({
 })
 
 const Stats = ({ cards, completed, progress, close }) => (
-    <div>
-        <Title value="quizzy - stats" />
-        <div
-            style={style.info}
-            onClick={close}
-        >
-            completed {completed} of {cards.length} ({progress}%)
-        </div>
-        {cards.map((card) => (
-            <div key={card.id} style={style.card}>
-                <div style={style.origin}>{card.se}</div>
-                <div style={style.translation}>{card.en}</div>
-                {card.hasScore ? <div style={style.score}>{card.score}</div> : null}
+    <MobilePage>
+        <MobilePage.Header
+            title={'quizzy :: stats'}
+            leftBtnIcon={'left'}
+            leftBtnHandler={close}
+        />
+        <MobilePage.Body withPadding={false}>
+            <div
+                style={style.info}
+                onClick={close}
+            >
+                completed {completed} of {cards.length} ({progress}%)
             </div>
-        ))}
-    </div>
+            {cards.map((card) => (
+                <div key={card.id} style={style.card}>
+                    <div style={style.origin}>{card.se}</div>
+                    <div style={style.translation}>{card.en}</div>
+                    {card.hasScore ? <div style={style.score}>{card.score}</div> : null}
+                </div>
+            ))}
+        </MobilePage.Body>
+    </MobilePage>
 )
 
 Stats.propTypes = {

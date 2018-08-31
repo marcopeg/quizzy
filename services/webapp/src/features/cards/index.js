@@ -19,3 +19,5 @@ export const listeners = [
 ]
 
 export { default as Cards } from './Cards.containers'
+
+export const initDeck = cardsService.initDeck

@@ -1,0 +1,13 @@
+
+.mp-wizard__input::-webkit-input-placeholder {
+    color: white;
+}
+.mp-wizard__input::-moz-placeholder {
+    color: white;
+}
+.mp-wizard__input:-ms-input-placeholder {
+    color: white;
+}
+.mp-wizard__input:-moz-placeholder {
+    color: white;
+}

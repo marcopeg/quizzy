@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { resync } from 'features/dataset'
 import { cardOk, cardKo, initDeck, replayDeck } from './cards.service'
-import Title from 'components/Title'
-import Button from 'components/Button'
 import Card from './components/Card'
+
+import MobilePage from 'layouts/MobilePage'
+import Button from 'layouts/MobilePage/lib/Button'
 
 const mapState = ({ cards }, { match }) => ({
     currentCard: cards.currentCard,
@@ -18,8 +18,7 @@ const mapDispatch = (dispatch, { history }) => ({
     cardKo: (card) => dispatch(cardKo(card)),
     initDeck: () => dispatch(initDeck()),
     replayDeck: () => dispatch(replayDeck()),
-    resync: () => dispatch(resync()),
-    checkStats: () => history.push('/stats'),
+    quit: () => history.push('/'),
 })
 
 const Cards = ({
@@ -30,57 +29,46 @@ const Cards = ({
     cardKo,
     initDeck,
     replayDeck,
-    checkStats,
-    resync,
+    quit,
 }) => (
-    <div>
-        <Title value="QuizzY" />
-        {isLoading ? (
-            <div style={{ textAlign: 'center', color: '#666', marginTop: 80 }}>
-                <small>loading...</small>
-            </div>
-        ) : null}
-
-        {currentCard ? (
-            <div>
-                <Card
-                    {...currentCard}
-                    cardOk={() => cardOk(currentCard)}
-                    cardKo={() => cardKo(currentCard)}
-                />
+    <MobilePage>
+        <MobilePage.Header
+            title={'quizzy - play!'}
+            leftBtnIcon={'left'}
+            leftBtnHandler={quit}
+        />
+        <MobilePage.Body withPadding={false}>
+            {isLoading ? (
                 <div style={{ textAlign: 'center', color: '#666', marginTop: 80 }}>
-                    <p>
-                        <small onClick={() => initDeck()}>load a new deck</small>
-                    </p>
-                    <p>
-                        <small onClick={() => checkStats()}>check stats</small>
-                    </p>
-                    <p>
-                        <small onClick={() => resync()}>resync dataset</small>
-                    </p>
+                    <small>loading...</small>
                 </div>
-            </div>
-        ) : null}
+            ) : null}
 
-        {isDeckCompleted ? (
-            <div style={{ textAlign: 'center', color: '#666', marginTop: 20 }}>
-                <small>this deck is completed!</small>
-                <p>
-                    <Button onClick={() => initDeck()}>load a new deck</Button>
-                </p>
-                <p>
-                    <Button onClick={() => replayDeck()}>replay deck</Button>
-                </p>
-                <p>
-                    <Button onClick={() => checkStats()}>check stats</Button>
-                </p>
-                <hr />
-                <p>
-                    <Button onClick={() => resync()}>resync dataset</Button>
-                </p>
-            </div>
-        ) : null}
-    </div>
+            {currentCard ? (
+                <div>
+                    <Card
+                        {...currentCard}
+                        cardOk={() => cardOk(currentCard)}
+                        cardKo={() => cardKo(currentCard)}
+                    />
+                </div>
+            ) : null}
+
+            {isDeckCompleted ? (
+                <div style={{ textAlign: 'center', color: '#666', marginTop: 20 }}>
+                    <div style={{ marginBottom: 50, marginTop: 50 }}>
+                        <small>this deck is completed!</small>
+                    </div>
+                    <div style={{ marginBottom: 25, marginTop: 25 }}>
+                        <Button onClick={() => initDeck()}>load a new deck</Button>
+                    </div>
+                    <div style={{ marginBottom: 25, marginTop: 25 }}>
+                        <Button onClick={() => replayDeck()}>replay deck</Button>
+                    </div>
+                </div>
+            ) : null}
+        </MobilePage.Body>
+    </MobilePage>
 )
 
 Cards.propTypes = {
@@ -93,8 +81,7 @@ Cards.propTypes = {
     cardKo: PropTypes.func.isRequired,
     initDeck: PropTypes.func.isRequired,
     replayDeck: PropTypes.func.isRequired,
-    checkStats: PropTypes.func.isRequired,
-    resync: PropTypes.func.isRequired,
+    quit: PropTypes.func.isRequired,
 }
 
 Cards.defaultProps = {

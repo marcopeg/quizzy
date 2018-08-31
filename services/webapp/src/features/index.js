@@ -11,6 +11,7 @@ export default [
     require('redux-events-middleware/lib/location'),
     require('./dataset'),
     require('./scores'),
+    require('./home'),
     require('./cards'),
     require('./stats'),
 ]

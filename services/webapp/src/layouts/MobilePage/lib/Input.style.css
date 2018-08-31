@@ -1,0 +1,17 @@
+
+.mp-wizard__input::-webkit-input-placeholder {
+    color: #f6f6f6;
+    font-style: italic;
+}
+.mp-wizard__input::-moz-placeholder {
+    color: #f6f6f6;
+    font-style: italic;
+}
+.mp-wizard__input:-ms-input-placeholder {
+    color: #f6f6f6;
+    font-style: italic;
+}
+.mp-wizard__input:-moz-placeholder {
+    color: #f6f6f6;
+    font-style: italic;
+}

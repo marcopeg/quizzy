@@ -1,7 +1,7 @@
 
 export const initialState = {
     // status of the game
-    deckSize: 10,
+    deckSize: 7,
     cardDelay: 45,
     deck: [],
     currentCard: null,
@@ -72,6 +72,7 @@ export const actionHandlers = {
     }),
     [RESET_RESULTS]: (state) => ({
         ...state,
+        isDeckCompleted: false,
         results: {},
     }),
 }
