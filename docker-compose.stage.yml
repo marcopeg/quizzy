@@ -21,7 +21,7 @@ services:
         volumes:
             - ./services/webapp:/usr/src/app
         working_dir: /usr/src/app
-        entrypoint: [ "yarn", "start:prod:api" ]
+        entrypoint: [ "yarn", "start:prod" ]
         # restart: always
 
 networks:
