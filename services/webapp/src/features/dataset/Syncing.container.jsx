@@ -16,6 +16,7 @@ const style = {
         alignItems: 'center',
         transition: 'transform 0.3s ease',
         textAlign: 'center',
+        zIndex: 2,
     },
     visible: {
         transform: 'translate3d(0, 0, 0)',
